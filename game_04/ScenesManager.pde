@@ -1,6 +1,6 @@
 class ScenesManager
 {
-  BaseScene currentScene = null;//new StartScene();
+  BaseScene currentScene = null;
   
   void initialize()
   {
@@ -18,5 +18,7 @@ class ScenesManager
       currentScene = new GameScene();
     else if(currentScene instanceof WinScene || currentScene instanceof LoseScene)
       currentScene = new StartScene();
+    else if(currentScene instanceof GameScene)
+      currentScene.onMousePressed();
    }
 }

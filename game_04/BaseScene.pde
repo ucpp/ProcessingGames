@@ -17,4 +17,6 @@ abstract class BaseScene
   {
     image(imgBackground, 0, 0);
   }
+  
+  void onMousePressed(){}
 }
