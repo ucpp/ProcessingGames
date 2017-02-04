@@ -6,13 +6,7 @@ class Grid
   public Player player = new Player();
   public Player ai = new Player();
   public boolean isAIMove = false;
-  
-  class Player
-  {
-    void move(){}
     
-  }
-  
   Cell[] cells;
   
   public Grid(){}
@@ -38,7 +32,10 @@ class Grid
       for(int y = 0; y < 3; y++)
       {
         for(int x = 0; x < 3; x++)
+        {
           cells[y*3 + x] = new Cell(position.x + x * stepX + 5, position.y + y * stepY + 5, stepX-2, stepY-2);
+          cells[y*3 + x].number = y*3 + x + 1;
+        }
       }
     }
   }
@@ -63,8 +60,19 @@ class Grid
     {
       if(cells[i].contains(mouseX, mouseY))
       {
-        cells[i].setState(Cell.State.X, xImg);
-        isAIMove = true;
+        if(cells[i].state == Cell.State.EMPTY && player.move(cells[i].number))
+        {
+          cells[i].setState(Cell.State.X, xImg);
+          if(player.checkWin() > -1)
+          {
+            sm.Win();
+          }
+          else
+          {
+            isAIMove = true;
+            break;
+          }
+        }
       }
     }
   }
@@ -75,13 +83,22 @@ class Grid
     {
        for(int i = 0; i < cells.length; i++)
        {
-         if(cells[i].state == Cell.State.EMPTY)
-         {
+         if(cells[i].state == Cell.State.EMPTY && ai.move(cells[i].number))
+         {           
            cells[i].setState(Cell.State.O, oImg);
-           isAIMove = false;
-           break;
+           if(ai.checkWin() > -1)
+           {
+             sm.Lose();
+           }
+           else
+           {
+             isAIMove = false;
+             break;
+           }
          }
        }
+       if(isAIMove && ai.checkWin() == -1) 
+         sm.DeadHeat();
     }
   }
 }

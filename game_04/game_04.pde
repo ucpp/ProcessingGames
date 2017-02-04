@@ -1,5 +1,5 @@
-public static PApplet pApplet;
-ScenesManager sm = new ScenesManager();
+static PApplet pApplet;
+static ScenesManager sm;
 GameSettings settings = new GameSettings();
 
 void setup() 
@@ -7,6 +7,7 @@ void setup()
   size(256, 256);
   settings.initialize();
   pApplet = this;
+  sm = new ScenesManager();
   sm.initialize();
   sm.render();
 }

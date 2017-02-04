@@ -1,10 +1,5 @@
 class WinScene extends BaseScene
 {
-  void initialize()
-  {
-    super.initialize();
-  }
-  
   void render()
   {
     super.render();
