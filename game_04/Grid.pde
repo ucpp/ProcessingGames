@@ -3,8 +3,8 @@ class Grid
   Point position;
   PImage img;
   private PImage xImg, oImg;
-  public Player player = new Player();
-  public Player ai = new Player();
+  public Player player = new Player(Cell.State.X);
+  public AI ai = new AI(Cell.State.O);
   public boolean isAIMove = false;
     
   Cell[] cells;
@@ -47,8 +47,15 @@ class Grid
       
     for(int i = 0; i < cells.length; i++)
       cells[i].render();
-      
+    
     update();
+
+    if(ai.isWin())
+      sm.Lose();
+    else if(ai.isDeadHeat())
+      sm.DeadHeat();
+    else if(player.isWin())
+      sm.Win();
   }
   
   public void onMousePressed()
@@ -58,20 +65,15 @@ class Grid
     
     for(int i = 0; i < cells.length; i++)
     {
-      if(cells[i].contains(mouseX, mouseY))
+      if(cells[i].contains(mouseX, mouseY) && cells[i].state == Cell.State.EMPTY)
       {
-        if(cells[i].state == Cell.State.EMPTY && player.move(cells[i].number))
-        {
-          cells[i].setState(Cell.State.X, xImg);
-          if(player.checkWin() > -1)
-          {
-            sm.Win();
-          }
-          else
-          {
-            isAIMove = true;
-            break;
-          }
+        cells[i].setState(Cell.State.X, xImg);
+        player.move(cells[i].number, Cell.State.X);
+        ai.move(cells[i].number, Cell.State.X);
+        if(!player.isWin())
+        { 
+          isAIMove = true;
+          break;
         }
       }
     }
@@ -81,24 +83,18 @@ class Grid
   {
     if(isAIMove) 
     {
-       for(int i = 0; i < cells.length; i++)
+       int pos = ai.getPos();
+       isAIMove = false;
+       if(pos > -1)
        {
-         if(cells[i].state == Cell.State.EMPTY && ai.move(cells[i].number))
-         {           
-           cells[i].setState(Cell.State.O, oImg);
-           if(ai.checkWin() > -1)
-           {
-             sm.Lose();
-           }
-           else
-           {
-             isAIMove = false;
-             break;
-           }
-         }
+          ai.move(pos, Cell.State.O);
+          player.move(pos, Cell.State.O);
+          for(int i = 0; i < cells.length; i++)
+          {
+              if(cells[i].number == pos)
+                cells[i].setState(Cell.State.O, oImg);
+          }
        }
-       if(isAIMove && ai.checkWin() == -1) 
-         sm.DeadHeat();
     }
   }
 }
