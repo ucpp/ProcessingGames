@@ -1,12 +1,18 @@
+/*
+  Игра крестики-нолики
+  yaroma.maryan@gmail.com
+*/
+
 static PApplet pApplet;
 static ScenesManager sm;
-GameSettings settings = new GameSettings();
+GameSettings settings;
 
 void setup() 
 {
   size(256, 256);
-  settings.initialize();
   pApplet = this;
+  settings = new GameSettings();
+  settings.initialize();
   sm = new ScenesManager();
   sm.initialize();
   sm.render();

@@ -1,5 +1,6 @@
 class Grid
 {
+  public GameScene gameScene;
   Point position;
   PImage img;
   private PImage xImg, oImg;
@@ -47,19 +48,24 @@ class Grid
       
     for(int i = 0; i < cells.length; i++)
       cells[i].render();
-    
     update();
-
-    if(ai.isWin())
-      sm.Lose();
-    else if(ai.isDeadHeat())
-      sm.DeadHeat();
-    else if(player.isWin())
-      sm.Win();
   }
   
   public void onMousePressed()
   {
+    if(gameScene != null)
+    {
+      if(ai.isWin())
+        gameScene.Lose();
+      else if(ai.isDeadHeat())
+        gameScene.DeadHeat();
+      else if(player.isWin())
+        gameScene.Win();
+        
+      if(gameScene.isEndGame)
+        return;
+    }
+    
     if(isAIMove) 
       return;
     
@@ -83,7 +89,7 @@ class Grid
   {
     if(isAIMove) 
     {
-       int pos = ai.getPos();
+       int pos = ai.getNextPosition();
        isAIMove = false;
        if(pos > -1)
        {

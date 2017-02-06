@@ -9,6 +9,7 @@ abstract class BaseScene
   
   void initialize()
   {
+    frameRate(30);
     ResourceLoader res = ResourceLoader.getInstance();
     imgBackground = res.GetImage("bg");
   }

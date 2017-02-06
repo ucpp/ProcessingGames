@@ -6,6 +6,7 @@ class Player
   int[] grid = new int[9];
   int currentState;
   int countMoves = 0;
+  
   public Player(int state)
   {
     currentState = state;

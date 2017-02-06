@@ -1,6 +1,8 @@
 class GameScene extends BaseScene
 {
+  String message = new String();
   Grid grid = new Grid(); 
+  boolean isEndGame = false;
   
   public GameScene()
   { 
@@ -13,17 +15,43 @@ class GameScene extends BaseScene
     PImage img = ResourceLoader.getInstance().GetImage("grid");
     Point pos = new Point((256 - img.width)/2, (256 - img.height)/2);
     grid = new Grid(img, pos);
+    grid.gameScene = this;
+    frameRate(5);
   }
   
   void render()
   {
     super.render();
     grid.render(); 
-    delay(100);
+    text(message, width/2, 20);
   }
   
   void onMousePressed()
   {
-     grid.onMousePressed();
+    if(isEndGame)
+      sm.Restart();
+    else 
+      grid.onMousePressed();
+  }
+
+  void Win()
+  {
+    EndGame("You win!");
+  }
+
+  void Lose()
+  {
+     EndGame("You lose!");
+  }
+
+  void DeadHeat()
+  {
+    EndGame("Dead heat!");
+  }
+
+  void EndGame(String msg)
+  {
+    message = msg;
+    isEndGame = true;
   }
 }

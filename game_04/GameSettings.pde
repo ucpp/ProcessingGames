@@ -1,6 +1,6 @@
 class GameSettings
 {
-  final int fontSize = 20;
+  final int fontSize = 35;
   
   void initialize()
   {
