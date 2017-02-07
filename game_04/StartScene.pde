@@ -1,10 +1,5 @@
 class StartScene extends BaseScene
-{
-  void initialize()
-  {
-    super.initialize();
-  }
-  
+{  
   void render()
   {
     super.render();

@@ -1,12 +1,12 @@
 class GameSettings
 {
-  final int fontSize = 35;
+  final int fontSize = 30;
   
   void initialize()
   {
     frameRate(30);
     background(255);
-    fill(0);
+    fill(23, 23, 125);
     initializeTextSettings();
   }
   

@@ -2,7 +2,7 @@ class ScenesManager
 {
   BaseScene currentScene = null;
 
-  void initialize()
+  void startGame()
   {
     currentScene = new StartScene();
   }
@@ -18,10 +18,5 @@ class ScenesManager
       currentScene = new GameScene();
     else if(currentScene instanceof GameScene)
       currentScene.onMousePressed();
-   }
-   
-   void Restart()
-   {
-     initialize();
    }
 }

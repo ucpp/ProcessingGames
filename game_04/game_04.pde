@@ -14,7 +14,7 @@ void setup()
   settings = new GameSettings();
   settings.initialize();
   sm = new ScenesManager();
-  sm.initialize();
+  sm.startGame();
   sm.render();
 }
 

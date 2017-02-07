@@ -7,6 +7,7 @@ class Grid
   public Player player = new Player(Cell.State.X);
   public AI ai = new AI(Cell.State.O);
   public boolean isAIMove = false;
+  private float dt = 0;
     
   Cell[] cells;
   
@@ -48,59 +49,64 @@ class Grid
       
     for(int i = 0; i < cells.length; i++)
       cells[i].render();
-    update();
+    dt += 1.0f/30.0f;
+    if(dt >= 2.0f)
+    {
+      dt = 0.0f;
+      update();
+      
+      if(gameScene != null)
+      {
+        if(ai.isWin())
+          gameScene.Lose();
+        else if(ai.isDeadHeat())
+          gameScene.DeadHeat();
+        else if(player.isWin())
+          gameScene.Win();
+          
+        if(gameScene.isEndGame)
+          return;
+      }
+    }
   }
   
   public void onMousePressed()
-  {
-    if(gameScene != null)
-    {
-      if(ai.isWin())
-        gameScene.Lose();
-      else if(ai.isDeadHeat())
-        gameScene.DeadHeat();
-      else if(player.isWin())
-        gameScene.Win();
-        
-      if(gameScene.isEndGame)
-        return;
-    }
-    
+  {    
     if(isAIMove) 
       return;
-    
-    for(int i = 0; i < cells.length; i++)
-    {
-      if(cells[i].contains(mouseX, mouseY) && cells[i].state == Cell.State.EMPTY)
+
+      for(int i = 0; i < cells.length; i++)
       {
-        cells[i].setState(Cell.State.X, xImg);
-        player.move(cells[i].number, Cell.State.X);
-        ai.move(cells[i].number, Cell.State.X);
-        if(!player.isWin())
-        { 
-          isAIMove = true;
-          break;
+        if(cells[i].contains(mouseX, mouseY) && cells[i].state == Cell.State.EMPTY)
+        {
+          cells[i].setState(Cell.State.X, xImg);
+          player.move(cells[i].number, Cell.State.X);
+          ai.move(cells[i].number, Cell.State.X);
+          if(!player.isWin())
+          { 
+            isAIMove = true;
+            break;
+          }
         }
-      }
     }
   }
   
   private void update()
   {
-    if(isAIMove) 
-    {
-       int pos = ai.getNextPosition();
-       isAIMove = false;
-       if(pos > -1)
-       {
-          ai.move(pos, Cell.State.O);
-          player.move(pos, Cell.State.O);
-          for(int i = 0; i < cells.length; i++)
-          {
-              if(cells[i].number == pos)
-                cells[i].setState(Cell.State.O, oImg);
-          }
-       }
-    }
+      if(isAIMove) 
+      {
+         int pos = ai.getNextPosition();
+         isAIMove = false;
+         if(pos > -1)
+         {
+            ai.move(pos, Cell.State.O);
+            player.move(pos, Cell.State.O);
+            for(int i = 0; i < cells.length; i++)
+            {
+                if(cells[i].number == pos)
+                  cells[i].setState(Cell.State.O, oImg);
+            }
+         }
+      }
   }
 }
