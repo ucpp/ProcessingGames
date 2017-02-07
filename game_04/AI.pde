@@ -8,6 +8,7 @@ class AI extends Player
     super(state);
   }
 
+  // вернуть номер ячейки для следующего хода
   int getNextPosition()
   {
     // проверяем можно ли выйграть этим ходом, 

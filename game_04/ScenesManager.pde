@@ -1,7 +1,9 @@
 class ScenesManager
 {
+  //текущая сцена
   BaseScene currentScene = null;
-
+  
+  // запустить игру со стартовой сцены
   void startGame()
   {
     currentScene = new StartScene();

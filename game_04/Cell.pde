@@ -1,18 +1,18 @@
 class Cell
 {
-  Point position;
-  public int w, h;
-  public int number;
-  public PImage img;
   class State
   {
     static final int
-    EMPTY = 0,
-    X = 1,
-    O = 2;
+    EMPTY = 0, // пустая клетка
+    X = 1,     // крестик
+    O = 2;     // нолик
   }
   public int state = State.EMPTY;
-  
+
+  private Point position;
+  private int w, h;
+  private PImage img;
+
   public Cell(int x, int y, int w, int h)
   {
     position = new Point(x, y);
@@ -20,12 +20,14 @@ class Cell
     this.h = h;
   }
   
+  // установить состояние ячейки
   public void setState(int state, PImage img)
   {
     this.state = state;
     this.img = img;
   }
   
+  // проверка на вхождение точки в ячейку, для проверки клика мышью
   public boolean contains(int x, int y)
   {
     if(x > position.x && x < position.x + w && y > position.y && y < position.y + w)
@@ -33,6 +35,7 @@ class Cell
     return false;
   }
   
+  // если ячейка не пустая, нарисовать изображение
   public void render()
   {
     if(state > State.EMPTY)

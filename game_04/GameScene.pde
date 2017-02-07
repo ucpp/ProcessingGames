@@ -16,7 +16,6 @@ class GameScene extends BaseScene
     Point pos = new Point((256 - img.width)/2, (256 - img.height)/2);
     grid = new Grid(img, pos);
     grid.gameScene = this;
-    //frameRate(5);
   }
   
   void render()
