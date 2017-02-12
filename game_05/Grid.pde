@@ -11,11 +11,13 @@ class Grid
   private void initialize()
   {
     cells = new Cell[size][size];
-    for(int i=0; i<cells.length;i++)
+    int cellWidth = width/4;
+    int cellHeight = height/4;
+    for(int y=0; y<cells.length;y++)
     {
-      for(int j=0; j<cells[i].length; j++)
+      for(int x=0; x<cells[y].length; x++)
       {
-        cells[i][j]=new Cell();
+        cells[x][y] = new Cell(cellWidth*x, cellHeight*y, cellWidth, cellHeight);
       }
     }
   }
