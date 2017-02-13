@@ -27,3 +27,8 @@ void mousePressed()
 {
   sm.onMousePressed();
 }
+
+void keyPressed()
+{
+  sm.onKeyPressed(keyCode);
+}

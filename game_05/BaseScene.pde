@@ -13,4 +13,6 @@ abstract class BaseScene
   }
   
   void onMousePressed(){}
+  
+  void onKeyPressed(int k){}
 }

@@ -19,4 +19,9 @@ class ScenesManager
     if(currentScene instanceof StartScene)
       currentScene = new GameScene();
   }
+  
+  void onKeyPressed(int k)
+  {
+    currentScene.onKeyPressed(k);
+  }
 }

@@ -34,4 +34,10 @@ class Grid
       }
     }
   }
+  
+  private void moveUp(){}
+  private void moveDown(){}
+  private void moveLeft(){}
+  private void moveRight(){}
+  
 }
