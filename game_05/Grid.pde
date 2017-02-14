@@ -6,7 +6,7 @@ class Grid
   private Grid()
   {
     initialize();
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < 1; i++)
       addElement();
   }
    
@@ -37,87 +37,57 @@ class Grid
     }
   }
   
+  private void moveCell(Cell from, Cell to)
+  {
+    if(from.value == to.value)
+    {
+      to.value *= 2;
+      from.value = 0;
+    }
+    else if(to.value == 0)
+    {
+      to.value = from.value;
+      from.value = 0;
+    }
+  }
+  
   private void moveUp()
   {
-    //addElement();
+    addElement();
     for(int i=0; i < cells.length; i++)
     {
       for(int j=cells[i].length-1; j > 0; j--)
-      {
-        if(cells[i][j].value == cells[i][j-1].value)
-        {
-          cells[i][j-1].value *= 2;
-          cells[i][j].value = 0;
-        }
-        else if(cells[i][j-1].value == 0)
-        {
-          cells[i][j-1].value = cells[i][j].value;
-          cells[i][j].value = 0;
-        }
-      }
-    }    
+        moveCell(cells[i][j], cells[i][j-1]);
+    }   
   }
   
   private void moveDown()
   {
-    //addElement();
+    addElement();
     for(int i=0; i < cells.length; i++)
     {
       for(int j=0; j < cells[i].length-1; j++)
-      {
-        if(cells[i][j].value == cells[i][j+1].value)
-        {
-          cells[i][j+1].value *= 2;
-          cells[i][j].value = 0;
-        }
-        else if(cells[i][j+1].value == 0)
-        {
-          cells[i][j+1].value = cells[i][j].value;
-          cells[i][j].value = 0;
-        }
-      }
-    }  
+        moveCell(cells[i][j], cells[i][j+1]);
+    }   
   }
   
   private void moveLeft()
   {
-    //addElement();
+    addElement();
     for(int i=cells.length-1; i > 0; i--)
     {
       for(int j=0; j<cells[i].length; j++)
-      {
-        if(cells[i][j].value == cells[i-1][j].value)
-        {
-          cells[i-1][j].value *= 2;
-          cells[i][j].value = 0;
-        }
-        else if(cells[i-1][j].value == 0)
-        {
-          cells[i-1][j].value = cells[i][j].value;
-          cells[i][j].value = 0;
-        }
-      }
+          moveCell(cells[i][j], cells[i-1][j]);
     }
   }
  
   private void moveRight()
   {
-    //addElement();
+    addElement();
     for(int i=0; i < cells.length-1; i++)
     {
       for(int j=0; j<cells[i].length; j++)
-      {
-        if(cells[i][j].value == cells[i+1][j].value)
-        {
-          cells[i+1][j].value *= 2;
-          cells[i][j].value = 0;
-        }
-        else if(cells[i+1][j].value == 0)
-        {
-          cells[i+1][j].value = cells[i][j].value;
-          cells[i][j].value = 0;
-        }
-      }
+        moveCell(cells[i][j], cells[i+1][j]);
     }
   }
   
