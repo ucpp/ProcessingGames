@@ -2,7 +2,7 @@ class Cell
 {
   private Point position;
   private int w, h;
-  private int value = 2048;
+  private int value = 0;
   
   public Cell(int x, int y, int w, int h)
   {
