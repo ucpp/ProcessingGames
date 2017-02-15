@@ -1,3 +1,5 @@
+//алгоритм взял здесь http://grafika.me/node/31
+
 void setup()
 {
   size(600, 400);
