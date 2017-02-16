@@ -1,14 +1,22 @@
 //алгоритм взял здесь http://grafika.me/node/31
 
+int i = 0;
+
 void setup()
 {
-  size(600, 400);
-  background(0);
-  drawFractal(600, 400);
+  size(300, 200);
+  frameRate(10);
+}
+
+void draw()
+{
+    i += 3;
+    background(0);
+    drawFractal(300, 200, i%60);
 }
 
 //функция зарисовки фрактала
-public void drawFractal(int w, int h) 
+public void drawFractal(int w, int h, int countIteration) 
 {
   // при каждой итерации, вычисляется znew = zold² + С
   // вещественная  и мнимая части постоянной C
@@ -18,7 +26,7 @@ public void drawFractal(int w, int h)
   // Можно увеличивать и изменять положение
   double zoom = 1, moveX = 0, moveY = 0;
   //Определяем после какого числа итераций функция должна прекратить свою работу
-  int maxIterations = 300;
+  int maxIterations = countIteration;
  
   //выбираем несколько значений константы С, это определяет форму фрактала Жюлиа
   cRe = -0.70176;
